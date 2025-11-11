@@ -15,7 +15,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 SECRET_KEY = env.str("SECRET_KEY", "fallback-secret-dev")
 DEBUG = env.bool("DEBUG", default = False)
-
+PORT = os.environ.get('PORT', 8000)
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"])
 
 SITE_ID  = 1
