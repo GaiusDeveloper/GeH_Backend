@@ -10,7 +10,7 @@ class Category(models.Model):
     ('Accessories', 'Accessories'),
 ]
     name =  models.CharField(max_length= 100, choices= CATEGORY_OPTIONS)
-    
+
     def __str__(self):
         return self.name
 
@@ -45,6 +45,8 @@ class Product(models.Model):
     product_category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    discount_percentage = models.IntegerField(blank=True, null=True)
+    discount_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     product_status = models.CharField(max_length=20, choices=STATUS_OPTIONS, default='Available')
     specification = models.ForeignKey(Specification, on_delete=models.CASCADE, related_name='products')
     image = models.ImageField(upload_to='products/images/', blank=True, null=True)
@@ -54,6 +56,12 @@ class Product(models.Model):
     def __str__(self):
         return self.title
 
+    def calculate_discount_amount(self):
+        if self.price and self.discount_percentage > 0:
+            # Calculate the discount amount: price * percentage /100
+            self.discount_price = self.price -(self.price * self.discount_percentage / 100)
+            return self.discount_price
+        return self.price
 
 
 
