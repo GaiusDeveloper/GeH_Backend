@@ -1,0 +1,1 @@
+web: gunicorn geh_backend.wsgi
