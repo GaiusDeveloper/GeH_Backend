@@ -76,12 +76,11 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )
-ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+
+ACCOUNT_LOGIN_METHODS = {'email', 'username'}
+ACCOUNT_SIGNUP_FIELD = ['username*', 'email*', 'password1*', 'password2*']
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_UNIQUE_EMAIL = True
-ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = True
 ACCOUNT_SESSION_REMEMBER = True
 
 LOGIN_REDIRECT_URL = '/'
