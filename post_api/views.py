@@ -15,6 +15,14 @@ class ProductViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ['product_category']  #Filter based on category
     search_params = ['name']
+    
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data = request.data)
+        if serializer.is_valid():
+            self.perform_create(serializer)
+        else:
+            print("Product POST error", serializer.error)
+    
     def get_serializer_class(self):
         if self.action == 'list':
             return ProductListSerializer
@@ -23,7 +31,6 @@ class ProductViewSet(viewsets.ModelViewSet):
         # create/update -> write serializer that accepts nested specs
         return ProductWriteSerializer
     
-    # MEthod to filter request based on catigory
 
 
 
