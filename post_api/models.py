@@ -57,7 +57,7 @@ class Product(models.Model):
     discount_percentage = models.IntegerField(blank=True, null=True)
     discount_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     product_status = models.CharField(max_length=20, choices=STATUS_OPTIONS, default='Available')
-    specification = models.ForeignKey(Specification, on_delete=models.CASCADE, related_name='products')
+    specification = models.ForeignKey(Specification, on_delete=models.SET_NULL, related_name='products')
     image = models.ImageField(upload_to='products/images/', blank=True, null=True)
     video = models.FileField(upload_to='products/videos/', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
