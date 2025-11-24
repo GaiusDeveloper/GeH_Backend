@@ -21,7 +21,7 @@ class ProductViewSet(viewsets.ModelViewSet):
         if serializer.is_valid():
             self.perform_create(serializer)
         else:
-            print("Product POST error", serializer.error)
+            print("Product POST error", serializer.errors)
     
     def get_serializer_class(self):
         if self.action == 'list':
