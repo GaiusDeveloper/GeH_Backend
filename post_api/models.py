@@ -1,18 +1,18 @@
 from django.db import models
 
 # Create your models here.
-class Category(models.Model):
-    CATEGORY_OPTIONS = [
-    ('Phones', 'Phones'),
-    ('Laptops', 'Laptops'),
-    ('Consoles', 'Consoles'),
-    ('iPads', 'iPads'),
-    ('Accessories', 'Accessories'),
-]
-    name =  models.CharField(max_length= 100, choices= CATEGORY_OPTIONS)
+# class Category(models.Model):
+#     CATEGORY_OPTIONS = [
+#     ('Phones', 'Phones'),
+#     ('Laptops', 'Laptops'),
+#     ('Consoles', 'Consoles'),
+#     ('iPads', 'iPads'),
+#     ('Accessories', 'Accessories'),
+# ]
+#     name =  models.CharField(max_length= 100, choices= CATEGORY_OPTIONS)
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
 class Specification(models.Model):
     CONDITION_OPTIONS = [
@@ -41,8 +41,17 @@ class Product(models.Model):
         ('Out of stock', 'Out of stock'),
     ]
 
+    CATEGORY_OPTIONS = [
+    ('Phones', 'Phones'),
+    ('Laptops', 'Laptops'),
+    ('Consoles', 'Consoles'),
+    ('iPads', 'iPads'),
+    ('Accessories', 'Accessories'),
+]
+
     title = models.CharField(max_length=100)
-    product_category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
+    # product_category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
+    product_category = models.CharField(choices=CATEGORY_OPTIONS, )
     description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
     discount_percentage = models.IntegerField(blank=True, null=True)
