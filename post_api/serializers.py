@@ -29,15 +29,7 @@ class ProductWriteSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ['id', 'created_at']
 
-    # def create(self, validated_data):
-    #     specs_data = validated_data.pop('specification', [])
-    #     product = Product.objects.create(**validated_data)
-    #     for specs in specs_data:
-    #         Specification.objects.create(product =product, **specs)
-    #     return product
-    
-    
-    
+
     def create(self, validated_data):
         # Auto-calculate discount price if discount_percentage present
         discount_percentage = validated_data.get("discount_percentage")
@@ -51,20 +43,6 @@ class ProductWriteSerializer(serializers.ModelSerializer):
         product = Product.objects.create(**validated_data)
         return product
 
-    # def update(self, instance, validated_data):
-    #     specs_data = validated_data.pop('specification', None)
-    #     #update product field
-    #     for attr, value in validated_data.items():
-    #         setattr(instance, attr, value)
-    #     instance.save()
-
-    #     #If specs pass, replace existing specs with new list
-    #     if specs_data is not None:
-    #         instance.specifications.all().delete()
-    #         for specs in specs_data:
-    #             Specification.objects.create(product=instance, **specs)
-    #     return instance
-    
     def update(self, instance, validated_data):
         # Update fields normally
         for attr, value in validated_data.items():
