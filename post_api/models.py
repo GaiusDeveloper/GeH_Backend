@@ -1,60 +1,12 @@
 from django.db import models
 
 # Create your models here.
-# class Category(models.Model):
-#     CATEGORY_OPTIONS = [
-#     ('Phones', 'Phones'),
-#     ('Laptops', 'Laptops'),
-#     ('Consoles', 'Consoles'),
-#     ('iPads', 'iPads'),
-#     ('Accessories', 'Accessories'),
-# ]
-#     name =  models.CharField(max_length= 100, choices= CATEGORY_OPTIONS)
-
-#     def __str__(self):
-#         return self.name
-
-class Specification(models.Model):
-    CONDITION_OPTIONS = [
-        ('New', 'New'),
-        ('Used', 'Used'),
-        ('Pre-owned', 'Pre-owned'),
-    ]
-
-    brand = models.CharField(max_length=50)
-    model_type = models.CharField(max_length=50)
-    color = models.CharField(max_length=50, blank=True, null=True)
-    internal_storage = models.IntegerField(blank=True, null=True)
-    RAM = models.IntegerField(blank=True, null=True)
-    card_slot = models.CharField(max_length=50, blank=True, null=True)
-    eSim = models.CharField(max_length=50, blank=True, null=True)
-    condition = models.CharField(max_length=20, choices=CONDITION_OPTIONS)
-    swap_allowed = models.BooleanField(default=False)
-
-    def __str__(self):
-        return f"{self.brand} {self.model_type}"
-
 
 class Product(models.Model):
     STATUS_OPTIONS = [
         ('Available', 'Available'),
         ('Out of stock', 'Out of stock'),
     ]
-    
-#     BRAND_OPTIONS = [
-#     ("Tecno", "Tecno"),
-#     ("Infinix", "Infinix"),
-#     ("Itel", "Itel"),
-#     ("Samsung", "Samsung"),
-#     ("Apple", "Apple"),
-#     ("Nokia", "Nokia"),
-#     ("Xiaomi", "Xiaomi"),
-#     ("Huawei", "Huawei"),
-#     ("OPPO", "OPPO"),
-#     ("Vivo", "Vivo"),
-#     ("Realme", "Realme"),
-#     ("ZTE", "ZTE"),
-# ]
 
 
     CATEGORY_OPTIONS = [

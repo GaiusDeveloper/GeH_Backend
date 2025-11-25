@@ -1,29 +1,14 @@
 from rest_framework import serializers
 
-from .models import Specification, Product
-
-# class SpecificationSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Specification
-#         fields ='__all__'
-#         read_only_fields = ['id']
-
-# class CategorySerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Category
-#         fields =['id', 'name']
+from .models import Product
 
 class ProductListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
-        # product_category = CategorySerializer(read_only =True)
         fields = '__all__'
 
 
 class ProductDetailSerializer(serializers.ModelSerializer):
-    # product_category = CategorySerializer(read_only = True)
-    # specification = SpecificationSerializer(read_only = True)
-
     class Meta:
         model = Product
         fields = '__all__'
@@ -31,31 +16,76 @@ class ProductDetailSerializer(serializers.ModelSerializer):
 
 class ProductWriteSerializer(serializers.ModelSerializer):
     #accept category by id
-    # product_category = CategorySerializer(read_only = True)
-    # specification = SpecificationSerializer(read_only = True)
+    
+    
+    price = serializers.DecimalField(max_digits=10, decimal_places=2, coerce_to_string=False)
+    discount_price = serializers.DecimalField(
+        max_digits=10, decimal_places=2, coerce_to_string=False,
+        required=False, allow_null=True
+    )
 
     class Meta:
         model = Product
         fields = '__all__'
-        read_only_fields = ['id']
+        read_only_fields = ['id', 'created_at']
 
+    # def create(self, validated_data):
+    #     specs_data = validated_data.pop('specification', [])
+    #     product = Product.objects.create(**validated_data)
+    #     for specs in specs_data:
+    #         Specification.objects.create(product =product, **specs)
+    #     return product
+    
+    
+    
     def create(self, validated_data):
-        specs_data = validated_data.pop('specification', [])
+        # Auto-calculate discount price if discount_percentage present
+        discount_percentage = validated_data.get("discount_percentage")
+        price = validated_data.get("price")
+
+        if price and discount_percentage not in (None, "", 0):
+            validated_data["discount_price"] = price - (
+                price * discount_percentage / 100
+            )
+
         product = Product.objects.create(**validated_data)
-        for specs in specs_data:
-            Specification.objects.create(product =product, **specs)
         return product
 
+    # def update(self, instance, validated_data):
+    #     specs_data = validated_data.pop('specification', None)
+    #     #update product field
+    #     for attr, value in validated_data.items():
+    #         setattr(instance, attr, value)
+    #     instance.save()
+
+    #     #If specs pass, replace existing specs with new list
+    #     if specs_data is not None:
+    #         instance.specifications.all().delete()
+    #         for specs in specs_data:
+    #             Specification.objects.create(product=instance, **specs)
+    #     return instance
+    
     def update(self, instance, validated_data):
-        specs_data = validated_data.pop('specification', None)
-        #update product field
+        # Update fields normally
         for attr, value in validated_data.items():
             setattr(instance, attr, value)
-        instance.save()
 
-        #If specs pass, replace existing specs with new list
-        if specs_data is not None:
-            instance.specifications.all().delete()
-            for specs in specs_data:
-                Specification.objects.create(product=instance, **specs)
+        # Recalculate discount if needed
+        if (
+            "discount_percentage" in validated_data
+            or "price" in validated_data
+        ):
+            price = validated_data.get("price", instance.price)
+            discount_percentage = validated_data.get(
+                "discount_percentage", instance.discount_percentage
+            )
+
+            if price and discount_percentage not in (None, "", 0):
+                instance.discount_price = price - (
+                    price * discount_percentage / 100
+                )
+            else:
+                instance.discount_price = None
+
+        instance.save()
         return instance
