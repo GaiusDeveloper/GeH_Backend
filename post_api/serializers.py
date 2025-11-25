@@ -2,11 +2,11 @@ from rest_framework import serializers
 
 from .models import Specification, Product
 
-class SpecificationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Specification
-        fields ='__all__'
-        read_only_fields = ['id']
+# class SpecificationSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Specification
+#         fields ='__all__'
+#         read_only_fields = ['id']
 
 # class CategorySerializer(serializers.ModelSerializer):
 #     class Meta:
@@ -22,7 +22,7 @@ class ProductListSerializer(serializers.ModelSerializer):
 
 class ProductDetailSerializer(serializers.ModelSerializer):
     # product_category = CategorySerializer(read_only = True)
-    specification = SpecificationSerializer(read_only = True)
+    # specification = SpecificationSerializer(read_only = True)
 
     class Meta:
         model = Product
@@ -32,7 +32,7 @@ class ProductDetailSerializer(serializers.ModelSerializer):
 class ProductWriteSerializer(serializers.ModelSerializer):
     #accept category by id
     # product_category = CategorySerializer(read_only = True)
-    specification = SpecificationSerializer(read_only = True)
+    # specification = SpecificationSerializer(read_only = True)
 
     class Meta:
         model = Product

@@ -40,6 +40,22 @@ class Product(models.Model):
         ('Available', 'Available'),
         ('Out of stock', 'Out of stock'),
     ]
+    
+#     BRAND_OPTIONS = [
+#     ("Tecno", "Tecno"),
+#     ("Infinix", "Infinix"),
+#     ("Itel", "Itel"),
+#     ("Samsung", "Samsung"),
+#     ("Apple", "Apple"),
+#     ("Nokia", "Nokia"),
+#     ("Xiaomi", "Xiaomi"),
+#     ("Huawei", "Huawei"),
+#     ("OPPO", "OPPO"),
+#     ("Vivo", "Vivo"),
+#     ("Realme", "Realme"),
+#     ("ZTE", "ZTE"),
+# ]
+
 
     CATEGORY_OPTIONS = [
     ('Phones', 'Phones'),
@@ -49,17 +65,41 @@ class Product(models.Model):
     ('Accessories', 'Accessories'),
 ]
 
+    CONDITION_OPTIONS = [
+        ('New', 'New'),
+        ('Used', 'Used'),
+        ('Pre-owned', 'Pre-owned'),
+    ]
+
+    # Arranged according to mobile app
     title = models.CharField(max_length=100)
-    # product_category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='products')
-    product_category = models.CharField(choices=CATEGORY_OPTIONS, )
-    description = models.TextField()
+    product_category = models.CharField(choices=CATEGORY_OPTIONS, null=True )
+    product_status = models.CharField(max_length=20, choices=STATUS_OPTIONS, default='Available')
+
+    
     price = models.DecimalField(max_digits=10, decimal_places=2)
     discount_percentage = models.IntegerField(blank=True, null=True)
     discount_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    product_status = models.CharField(max_length=20, choices=STATUS_OPTIONS, default='Available')
-    specification = models.ForeignKey(Specification, on_delete=models.CASCADE, related_name='products', null=True, )
+    
+    # Media
     image = models.ImageField(upload_to='products/images/', blank=True, null=True)
     video = models.FileField(upload_to='products/videos/', blank=True, null=True)
+
+    # SPECIFICATION FIELDS
+    brand = models.CharField(max_length=50, blank=True, null=True)
+    model_type = models.CharField(max_length=50, blank=True, null=True)
+    color = models.CharField(max_length=50, blank=True, null=True)
+    condition = models.CharField(max_length=20, choices=CONDITION_OPTIONS, default='New')
+    internal_storage = models.CharField(blank=True, null=True)
+    ram = models.CharField(blank=True, null=True)
+    card_slot = models.CharField(max_length=20, blank=True, null=True)
+    eSim = models.CharField(max_length=20, blank=True, null=True)
+    swap_allowed = models.CharField(max_length=20 ,blank=True, null=True)
+
+    description = models.TextField()
+
+    # condition = models.CharField(choices=CONDITION_OPTIONS, default= 'New' )
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
