@@ -10,6 +10,7 @@ from dj_rest_auth.registration.views import ConfirmEmailView
 from django.shortcuts import redirect
 from django.conf import settings
 from rest_framework import filters
+from django.core.files.storage import FileSystemStorage
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all().order_by('-created_at')
@@ -19,10 +20,25 @@ class ProductViewSet(viewsets.ModelViewSet):
     search_params = ['name']
     
     def create(self, request, *args, **kwargs):
+        image = request.FILES.get('img')
+        image_path = None
+        
+        if image:
+            storage = FileSystemStorage()
+            file =storage.save(f'products/images/{image.name}', image)
+        
         serializer = self.get_serializer(data = request.data)
         serializer.is_valid(raise_exception=True)
+        
+        # Save produces manually and attach image
+        product: Product = serialize.save()
+        if image_path:
+            product.img = image_path 
+            product.save()
+        
         self.perform_create(serializer)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        return Response(ProductWriteSerializer(product).data, status=status.HTTP_201_CREATED)
     
     def get_serializer_class(self):
         if self.action == 'list':
