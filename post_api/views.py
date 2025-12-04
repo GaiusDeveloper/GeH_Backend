@@ -31,7 +31,7 @@ class ProductViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         
         # Save produces manually and attach image
-        product: Product = serialize.save()
+        product: Product = serializer.save()
         if image_path:
             product.img = image_path 
             product.save()
