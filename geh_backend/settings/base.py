@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'drf_yasg',
     'anymail',
-    'corsheaders',
+    "corsheaders",
 
     # Local
     'post_api',
@@ -111,7 +111,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # middleware
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
