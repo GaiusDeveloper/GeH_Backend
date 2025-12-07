@@ -4,8 +4,9 @@ from pathlib import Path
 from environs import Env
 import dj_database_url
 from datetime import timedelta
-
-
+import cloudinary
+import cloudinary.api
+from cloudinary.utils import cloudinary_url
 
 #instance of Env
 env = Env()
@@ -78,15 +79,19 @@ DJ_REST_AUTH = {
 }
 
 
-#cloudingary configurations
-CLOUDINARY = {
-    "CLOUD_NAME": os.getenv("dylbfycq4"),
-    "API_KEY": os.getenv('877325412638662'),
-    "API_SECRET_KEY": os.getenv('0XObiEfe4Rt1SGesLukcqMFhZ5I')
-}
+
+# Configuration
+cloudinary.config(
+    cloud_name=env.str("CLOUDINARY_CLOUD_NAME"),
+    api_key=env.str("CLOUDINARY_API_KEY"),
+    api_secret=env.str("CLOUDINARY_API_SECRET"),
+    secure=True
+)
 
 
-DEFAULT_FILE_STORAGE = 'clodinary_storage.storage.MediaCloudinaryStorage'
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 
 # Authentication backends
 
