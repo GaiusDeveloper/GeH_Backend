@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'anymail',
     "corsheaders",
     'cloudinary',
-    'clcoudinary_storage',
+    'cloudinary_storage',
 
     # Local
     'post_api',
