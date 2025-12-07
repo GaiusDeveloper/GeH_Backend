@@ -1,4 +1,5 @@
 from django.db import models
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
@@ -34,8 +35,10 @@ class Product(models.Model):
     discount_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
     
     # Media
-    image = models.ImageField(upload_to='products/images/', blank=True, null=True)
-    video = models.FileField(upload_to='products/videos/', blank=True, null=True)
+    # image = models.ImageField(upload_to='products/images/', blank=True, null=True)
+    image = CloudinaryField('image')
+    # video = models.FileField(upload_to='products/videos/', blank=True, null=True)
+    video = CloudinaryField('video')
 
     # SPECIFICATION FIELDS
     brand = models.CharField(max_length=50, blank=True, null=True)
