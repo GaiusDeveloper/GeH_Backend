@@ -1,6 +1,6 @@
 from rest_framework import serializers
-
 from .models import Product
+from cloudinary.utils import cloudinary_url
 
 class ProductListSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
@@ -8,10 +8,22 @@ class ProductListSerializer(serializers.ModelSerializer):
         model = Product
         fields = '__all__'
         
-    def get_image_url(self, obj):
-        request = self.context.get('request')
-        if obj.image and hasattr(obj.image, 'url'):
-            return request.build_absolute_uri(obj.image.url)
+    # def get_image_url(self, obj):
+    #     request = self.context.get('request')
+    #     if obj.image and hasattr(obj.image, 'url'):
+    #         return request.build_absolute_uri(obj.image.url)
+    #     return None
+    
+    def get_image_small(self, obj):
+        if obj.image:
+            url, _ = cloudinary_url(obj.image.name, width=200, height=200, crop='fill', gravity='auto', fetch_format='auto', quality='auto')
+            return url
+        return None
+
+    def get_image_large(self, obj):
+        if obj.image:
+            url, _ = cloudinary_url(obj.image.name, width=800, height=800, crop='fill', gravity='auto', fetch_format='auto', quality='auto')
+            return url
         return None
 
 
