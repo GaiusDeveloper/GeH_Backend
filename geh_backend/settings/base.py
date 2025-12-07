@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'drf_yasg',
     'anymail',
     "corsheaders",
+    'cloudinary',
+    'clcoudinary_storage',
 
     # Local
     'post_api',
@@ -75,6 +77,16 @@ DJ_REST_AUTH = {
     "JWT_AUTH_HTTPONLY": False,
 }
 
+
+#cloudingary configurations
+CLOUDINARY = {
+    "CLOUD_NAME": os.getenv("dylbfycq4"),
+    "API_KEY": os.getenv('877325412638662'),
+    "API_SECRET_KEY": os.getenv('0XObiEfe4Rt1SGesLukcqMFhZ5I')
+}
+
+
+DEFAULT_FILE_STORAGE = 'clodinary_storage.storage.MediaCloudinaryStorage'
 
 # Authentication backends
 
