@@ -82,9 +82,9 @@ DJ_REST_AUTH = {
 
 # Configuration
 cloudinary.config(
-    cloud_name=env.str("CLOUDINARY_CLOUD_NAME"),
+    cloud_name=env.str("CLOUDINARY_NAME"),
     api_key=env.str("CLOUDINARY_API_KEY"),
-    api_secret=env.str("CLOUDINARY_API_SECRET"),
+    api_secret=env.str("CLOUDINARY_API_SECRET_KEY"),
     secure=True
 )
 
