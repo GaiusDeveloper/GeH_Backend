@@ -36,7 +36,7 @@ class Product(models.Model):
     
     # Media
     # image = models.ImageField(upload_to='products/images/', blank=True, null=True)
-    image = CloudinaryField('image')
+    image = CloudinaryField('image',)
     # video = models.FileField(upload_to='products/videos/', blank=True, null=True)
     video = CloudinaryField('video')
 

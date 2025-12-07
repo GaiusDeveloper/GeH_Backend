@@ -11,7 +11,7 @@ class ProductListSerializer(serializers.ModelSerializer):
     def get_image_url(self, obj):
         if obj.image:
             url, _ = cloudinary_url(
-                obj.image.name,
+                obj.image.public_id,
                 fetch_format="auto",
                 quality="auto"
             )
@@ -20,13 +20,13 @@ class ProductListSerializer(serializers.ModelSerializer):
     
     def get_image_small(self, obj):
         if obj.image:
-            url, _ = cloudinary_url(obj.image.name, width=200, height=200, crop='fill', gravity='auto', fetch_format='auto', quality='auto')
+            url, _ = cloudinary_url(obj.image.public_id, width=200, height=200, crop='fill', gravity='auto', fetch_format='auto', quality='auto')
             return url
         return None
 
     def get_image_large(self, obj):
         if obj.image:
-            url, _ = cloudinary_url(obj.image.name, width=800, height=800, crop='fill', gravity='auto', fetch_format='auto', quality='auto')
+            url, _ = cloudinary_url(obj.image.public_id, width=800, height=800, crop='fill', gravity='auto', fetch_format='auto', quality='auto')
             return url
         return None
 
@@ -45,13 +45,13 @@ class ProductDetailSerializer(serializers.ModelSerializer):
     
     def get_image_small(self, obj):
         if obj.image:
-            url, _ = cloudinary_url(obj.image.name, width=200, height=200, crop='fill', gravity='auto', fetch_format='auto', quality='auto')
+            url, _ = cloudinary_url(obj.image.public_id, width=200, height=200, crop='fill', gravity='auto', fetch_format='auto', quality='auto')
             return url
         return None
 
     def get_image_large(self, obj):
         if obj.image:
-            url, _ = cloudinary_url(obj.image.name, width=800, height=800, crop='fill', gravity='auto', fetch_format='auto', quality='auto')
+            url, _ = cloudinary_url(obj.image.public_id, width=800, height=800, crop='fill', gravity='auto', fetch_format='auto', quality='auto')
             return url
         return None
 
