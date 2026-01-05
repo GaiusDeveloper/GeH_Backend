@@ -29,16 +29,14 @@ class Product(models.Model):
     product_category = models.CharField(choices=CATEGORY_OPTIONS, null=True )
     product_status = models.CharField(max_length=20, choices=STATUS_OPTIONS, default='Available')
 
-    
+
     price = models.DecimalField(max_digits=10, decimal_places=2)
     discount_percentage = models.IntegerField(blank=True, null=True)
     discount_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    
+
     # Media
-    # image = models.ImageField(upload_to='products/images/', blank=True, null=True)
-    image = CloudinaryField('image')
-    # video = models.FileField(upload_to='products/videos/', blank=True, null=True)
-    video = CloudinaryField('video')
+    image = models.ImageField(upload_to='products/images/', blank=True, null=True)
+    video = models.FileField(upload_to='products/videos/', blank=True, null=True)
 
     # SPECIFICATION FIELDS
     brand = models.CharField(max_length=50, blank=True, null=True)
