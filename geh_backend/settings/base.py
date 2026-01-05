@@ -414,7 +414,7 @@ INSTALLED_APPS = [
     'cloudinary',
     'cloudinary_storage',
     'django_filters',
-    'storages',  # For static files on Render
+    'storage',  # For static files on Render
 
     # Local
     'post_api',
