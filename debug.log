@@ -15625,3 +15625,35 @@ DEBUG 2025-12-13 17:47:55,951 autoreload 70793 140704314228928 File /Users/admin
 DEBUG 2025-12-13 17:47:55,951 autoreload 70793 140704314228928 File /Users/admin/Desktop/Backend Projects/GeH_Backend/.venv/lib/python3.14/site-packages/django/middleware/clickjacking.py first seen with mtime 1762202474.2078362
 DEBUG 2025-12-13 17:47:55,952 autoreload 70793 140704314228928 File /Users/admin/Desktop/Backend Projects/GeH_Backend/.venv/lib/python3.14/site-packages/PIL/_imaging.cpython-314-darwin.so first seen with mtime 1762202471.5065958
 DEBUG 2025-12-13 17:47:55,952 autoreload 70793 140704314228928 File /Users/admin/Desktop/Backend Projects/GeH_Backend/.venv/lib/python3.14/site-packages/django/contrib/sessions/middleware.py first seen with mtime 1762202473.8827431
+INFO 2026-01-18 22:22:22,169 autoreload 18893 140704599372032 Watching for file changes with StatReloader
+INFO 2026-01-18 22:22:40,171 autoreload 18893 140704599372032 /Users/admin/Desktop/Backend Projects/GeH_Backend/geh_backend/settings/base.py changed, reloading.
+INFO 2026-01-18 22:22:41,114 autoreload 18914 140704599372032 Watching for file changes with StatReloader
+INFO 2026-01-18 22:22:56,921 autoreload 18914 140704599372032 /Users/admin/Desktop/Backend Projects/GeH_Backend/geh_backend/settings/base.py changed, reloading.
+INFO 2026-01-18 22:22:57,955 autoreload 18938 140704599372032 Watching for file changes with StatReloader
+INFO 2026-01-18 22:23:13,575 autoreload 18938 140704599372032 /Users/admin/Desktop/Backend Projects/GeH_Backend/geh_backend/settings/base.py changed, reloading.
+INFO 2026-01-18 22:23:14,697 autoreload 18961 140704599372032 Watching for file changes with StatReloader
+INFO 2026-01-18 22:24:03,531 basehttp 18961 123145423634432 "GET / HTTP/1.1" 200 10007
+INFO 2026-01-18 22:24:03,685 basehttp 18961 123145440423936 "GET /static/rest_framework/css/bootstrap-tweaks.css HTTP/1.1" 200 3426
+INFO 2026-01-18 22:24:03,694 basehttp 18961 123145440423936 "GET /static/rest_framework/js/jquery-3.7.1.min.js HTTP/1.1" 304 0
+INFO 2026-01-18 22:24:03,695 basehttp 18961 123145457213440 "GET /static/rest_framework/css/prettify.css HTTP/1.1" 200 817
+INFO 2026-01-18 22:24:03,701 basehttp 18961 123145490792448 "GET /static/rest_framework/js/csrf.js HTTP/1.1" 304 0
+INFO 2026-01-18 22:24:03,703 basehttp 18961 123145490792448 "GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 304 0
+INFO 2026-01-18 22:24:03,705 basehttp 18961 123145507581952 "GET /static/rest_framework/js/ajax-form.js HTTP/1.1" 304 0
+INFO 2026-01-18 22:24:03,704 basehttp 18961 123145474002944 "GET /static/rest_framework/css/default.css HTTP/1.1" 200 1152
+INFO 2026-01-18 22:24:03,707 basehttp 18961 123145440423936 "GET /static/rest_framework/js/default.js HTTP/1.1" 304 0
+INFO 2026-01-18 22:24:03,707 basehttp 18961 123145457213440 "GET /static/rest_framework/js/bootstrap.min.js HTTP/1.1" 304 0
+INFO 2026-01-18 22:24:03,708 basehttp 18961 123145490792448 "GET /static/rest_framework/js/load-ajax-form.js HTTP/1.1" 304 0
+INFO 2026-01-18 22:24:03,709 basehttp 18961 123145423634432 "GET /static/rest_framework/css/bootstrap.min.css HTTP/1.1" 200 121457
+INFO 2026-01-18 22:24:03,734 basehttp 18961 123145423634432 "GET /static/rest_framework/img/grid.png HTTP/1.1" 200 1458
+INFO 2026-01-18 22:24:17,124 basehttp 18961 123145423634432 "GET / HTTP/1.1" 200 10007
+INFO 2026-01-18 22:24:24,658 basehttp 18961 123145423634432 "GET /swagger/ HTTP/1.1" 200 1631
+INFO 2026-01-18 22:24:24,756 basehttp 18961 123145507581952 "GET /static/drf-yasg/insQ.min.js HTTP/1.1" 200 2093
+INFO 2026-01-18 22:24:24,761 basehttp 18961 123145423634432 "GET /static/drf-yasg/style.css HTTP/1.1" 200 1047
+INFO 2026-01-18 22:24:24,764 basehttp 18961 123145507581952 "GET /static/drf-yasg/swagger-ui-init.js HTTP/1.1" 200 15480
+INFO 2026-01-18 22:24:24,766 basehttp 18961 123145490792448 "GET /static/drf-yasg/immutable.min.js HTTP/1.1" 200 56904
+INFO 2026-01-18 22:24:24,769 basehttp 18961 123145440423936 "GET /static/drf-yasg/swagger-ui-dist/swagger-ui.css HTTP/1.1" 200 145206
+INFO 2026-01-18 22:24:24,778 basehttp 18961 123145457213440 "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-standalone-preset.js HTTP/1.1" 200 322863
+INFO 2026-01-18 22:24:24,782 basehttp 18961 123145474002944 "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-bundle.js HTTP/1.1" 200 1046583
+INFO 2026-01-18 22:24:24,984 basehttp 18961 123145474002944 "GET /static/drf-yasg/swagger-ui-dist/favicon-32x32.png HTTP/1.1" 200 628
+INFO 2026-01-18 22:24:25,090 basehttp 18961 123145474002944 "GET /swagger/?format=openapi HTTP/1.1" 200 19768
+INFO 2026-01-18 22:35:52,194 autoreload 18961 140704599372032 /Users/admin/Desktop/Backend Projects/GeH_Backend/geh_backend/settings/base.py changed, reloading.
