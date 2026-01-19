@@ -16,7 +16,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 SECRET_KEY = env.str("SECRET_KEY")
 DEBUG = env.bool("DEBUG", default = False)
 
-PORT = os.environ.get('PORT', 8000)
+PORT = int(os.environ.get('PORT', 8000))
 
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=[])
 
