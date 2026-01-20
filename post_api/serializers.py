@@ -20,34 +20,108 @@ class CustomLoginResponseSerializer(serializers.Serializer):
             "username": user.username
         }
 
+from rest_framework import serializers
+from .models import Product
 
 class ProductListSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()
+    image_small = serializers.SerializerMethodField()
+    image_large = serializers.SerializerMethodField()
+    video_url = serializers.SerializerMethodField()
+
     class Meta:
         model = Product
-        fields = '__all__'
-        
+        fields = [
+            "id", 
+            "title",
+            "product_category",
+            "product_status",
+            "price",
+            "discount_percentage",
+            "discount_price",
+            "image_url",
+            "image_small",
+            "image_large",
+            "video_url",
+            "brand",
+            "model_type",
+            "color",
+            "condition",
+            "internal_storage",
+            "ram",
+            "card_slot",
+            "eSim",
+            "swap_allowed",
+            "description",
+            "created_at"
+        ]
+
     def get_image_url(self, obj):
-        if obj.image:
-            url, _ = cloudinary_url(
-                obj.image.public_id,
-                fetch_format="auto",
-                quality="auto"
-            )
-            return url
-        return None
-    
+        return obj.image.url if obj.image else None
+
     def get_image_small(self, obj):
         if obj.image:
-            url, _ = cloudinary_url(obj.image.public_id, width=200, height=200, crop='fill', gravity='auto', fetch_format='auto', quality='auto')
-            return url
+            # Use URL parameters for resizing via Cloudinary
+            return f"{obj.image.url}?w=200&h=200&c=fill&q=auto&f=auto"
         return None
 
     def get_image_large(self, obj):
         if obj.image:
-            url, _ = cloudinary_url(obj.image.public_id, width=800, height=800, crop='fill', gravity='auto', fetch_format='auto', quality='auto')
-            return url
+            return f"{obj.image.url}?w=800&h=800&c=fill&q=auto&f=auto"
         return None
+
+    def get_video_url(self, obj):
+        return obj.video.url if obj.video else None
+
+# class ProductListSerializer(serializers.ModelSerializer):
+#     image_url = serializers.SerializerMethodField()
+#     video_url = serializers.SerializerMethodField()
+#     class Meta:
+#         model = Product
+#         fields = [
+#             "id", 
+#             "title",
+#             "product_category",
+#             "product_status",
+#             "price",
+#             "discount_percentage",
+#             "discount_price",
+#             "image_url",
+#             "video_url",
+#             "brand",
+#             "model_type",
+#             "color",
+#             "condition",
+#             "internal_storage",
+#             "ram",
+#             "card_slot",
+#             "eSim",
+#             "swap_allowed",
+#             "description",
+#             "created_at"
+#         ]
+        
+#     def get_image_url(self, obj):
+#         if obj.image:
+#             url, _ = cloudinary_url(
+#                 obj.image.public_id,
+#                 fetch_format="auto",
+#                 quality="auto"
+#             )
+#             return url
+#         return None
+    
+#     def get_image_small(self, obj):
+#         if obj.image:
+#             url, _ = cloudinary_url(obj.image.public_id, width=200, height=200, crop='fill', gravity='auto', fetch_format='auto', quality='auto')
+#             return url
+#         return None
+
+#     def get_image_large(self, obj):
+#         if obj.image:
+#             url, _ = cloudinary_url(obj.image.public_id, width=800, height=800, crop='fill', gravity='auto', fetch_format='auto', quality='auto')
+#             return url
+#         return None
 
 
 class ProductDetailSerializer(serializers.ModelSerializer):
