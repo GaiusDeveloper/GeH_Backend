@@ -118,6 +118,9 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 # STATICFILES_DIRS = [static_path] if static_path.exists() else []
 
 STORAGES = {
+     "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
     "staticfiles":{
         "BACKEND":"whitenoise.storage.CompressedManifestStaticFilesStorage",
     }
@@ -217,7 +220,7 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # ==================== CLOUDINARY ====================
 MEDIA_URL = '/media/'
-DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+# DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 # ==================== CORS ====================
 CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS", default=[])
