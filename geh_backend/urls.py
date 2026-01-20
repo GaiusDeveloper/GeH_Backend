@@ -9,8 +9,8 @@ from django.conf.urls.static import static
 from rest_framework import permissions
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
+from post_api.views import CustomConfirmEmailView, CustomLoginView
 
-from post_api.views import CustomConfirmEmailView
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -28,7 +28,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # dj-rest-auth endpoints (login/logout/user)
+    path('auth/login/', CustomLoginView.as_view(), name='login'),
     path('auth/', include('dj_rest_auth.urls')),
+    
     path('auth/registration/', include('dj_rest_auth.registration.urls')),
     path('auth/registration/account-confirm-email/<str:key>/',CustomConfirmEmailView.as_view(), name='account_confirm_email'),
 

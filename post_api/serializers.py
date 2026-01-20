@@ -1,6 +1,25 @@
 from rest_framework import serializers
 from .models import Product
 from cloudinary.utils import cloudinary_url
+from dj_rest_auth.serializers import LoginSerializer
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+class CustomLoginResponseSerializer(serializers.Serializer):
+    user = serializers.SerializerMethodField()
+    access = serializers.CharField()
+    refersh = serializers.CharField()
+    
+    def get_user(self, obj):
+        request = self.context.get("request")
+        user = request.user
+        
+        return{
+            "id": user.id,
+            "username": user.username
+        }
+
 
 class ProductListSerializer(serializers.ModelSerializer):
     image_url = serializers.SerializerMethodField()

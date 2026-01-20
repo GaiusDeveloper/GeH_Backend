@@ -4,13 +4,19 @@ from rest_framework.response import Response
 from rest_framework import status
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Product
-from .serializers import ProductListSerializer, ProductDetailSerializer, ProductWriteSerializer
+from .serializers import ProductListSerializer, ProductDetailSerializer, ProductWriteSerializer, CustomLoginResponseSerializer
 from .permissions import IsAuthenticatedOrReadOnly
 from dj_rest_auth.registration.views import ConfirmEmailView
 from django.shortcuts import redirect
 from django.conf import settings
 from rest_framework import filters
 from django.core.files.storage import FileSystemStorage
+from dj_rest_auth.views import LoginView
+
+
+
+class CustomLoginView(LoginView):
+    response_serializer = CustomLoginResponseSerializer
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all().order_by('-created_at')

@@ -3,6 +3,10 @@ import os
 from pathlib import Path
 from environs import Env
 from datetime import timedelta
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 
 
 #instance of Env
@@ -108,13 +112,12 @@ USE_TZ = True
 
 # # ==================== STATIC & MEDIA FILES ====================
 STATIC_URL = 'static/'
-static_path = BASE_DIR / 'static'
-STATICFILES_DIRS = [static_path] if static_path.exists() else []
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# static_path = BASE_DIR / 'static'
+# STATICFILES_DIRS = [static_path] if static_path.exists() else []
+
 STORAGES = {
-    "default":{
-        "BACKEND":"django.core.files.FileSystemStorage",
-    },
     "staticfiles":{
         "BACKEND":"whitenoise.storage.CompressedManifestStaticFilesStorage",
     }
@@ -122,6 +125,8 @@ STORAGES = {
 }
 
 
+REST_USE_JWT = True
+TOKEN_MODEL = None
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -137,6 +142,8 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,
 }
 
+
+
 # ==================== JWT AUTHENTICATION ====================
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
@@ -147,18 +154,17 @@ SIMPLE_JWT = {
 # ==================== DJ-REST-AUTH ====================
 DJ_REST_AUTH = {
     "USE_JWT": True,
+    
     "JWT_AUTH_HTTPONLY": False,
-    "JWT_AUTH_REFRESH_COOKIE": "refresh-token",
-    "JWT_AUTH_COOKIE": "access-token",
     "JWT_AUTH_COOKIE_USE_CSRF": False,
-    "JWT_AUTH_SECURE": not DEBUG,
+    
+    # NO cookies used only JWT
+    "JWT_AUTH_REFRESH_COOKIE": None,
+    "JWT_AUTH_COOKIE": None,
+    
+    # "JWT_AUTH_SECURE": not DEBUG,
     "USER_DETAILS_SERIALIZER": "dj_rest_auth.serializers.UserDetailsSerializer",
 }
-
-
-
-
-
 
 
 # Authentication backends
@@ -168,10 +174,32 @@ AUTHENTICATION_BACKENDS = (
     'allauth.account.auth_backends.AuthenticationBackend',
 )
 
-ACCOUNT_LOGIN_METHODS = {'username', 'email'}
-ACCOUNT_SIGNUP_FIELD = ['username*', 'email*', 'password1*', 'password2*']
-ACCOUNT_EMAIL_VERIFICATION = 'optional'
+# Login: USername onyl
+ACCOUNT_LOGIN_METHODS = {'username'}
+
+# SIgnup: required username + email
+ACCOUNT_SIGNUP_FIELDS = {
+    'email': {
+        'required': True,
+        'max_length': 254,
+    },
+    # Add other fields as needed
+    'username': {
+        'required': True,  # or True based on your needs
+        'max_length': 150,
+    },
+    'password1': {
+        'required': True,
+    },
+    'password2': {
+        'required': True,
+    },
+}
+# No email-verification
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_UNIQUE_EMAIL = True
+
+# Session
 ACCOUNT_SESSION_REMEMBER = True
 LOGIN_REDIRECT_URL = '/'
 
@@ -186,6 +214,10 @@ EMAIL_HOST_USER = env.str("EMAIL_HOST_USER", default="")
 EMAIL_HOST_PASSWORD = env.str("EMAIL_HOST_PASSWORD", default="")
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
+
+# ==================== CLOUDINARY ====================
+MEDIA_URL = '/media/'
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 # ==================== CORS ====================
 CORS_ALLOWED_ORIGINS = env.list("CORS_ALLOWED_ORIGINS", default=[])
@@ -205,12 +237,7 @@ SWAGGER_SETTINGS = {
     'DEFAULT_INFO': 'geh_backend.urls.api_info',
 }
 
-# ==================== CLOUDINARY ====================
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
 
-DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 
 # ==================== DEFAULT AUTO FIELD ====================
